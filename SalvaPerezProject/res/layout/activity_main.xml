@@ -36,4 +36,14 @@
         android:layout_marginTop="28dp"
         android:text="@string/search_button" />
 
+    <Button
+        android:id="@+id/copy_contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/text_read"
+        android:layout_alignStart="@+id/search_button"
+        android:layout_below="@+id/search_button"
+        android:layout_marginTop="41dp"
+        android:text="@string/copy_contacts" />
+
 </RelativeLayout>

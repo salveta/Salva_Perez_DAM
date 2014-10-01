@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -17,16 +18,19 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		final Button boton=(Button) findViewById(R.id.search_button);
+		//Creamos variables para generar las vistas
+		final Button boton = (Button) findViewById(R.id.search_button);
+		final Button botonContactos = (Button) findViewById(R.id.copy_contacts);
 		final EditText typeText = (EditText) findViewById(R.id.type_text);
-        
+		
+        //Añadimos evento al botón
         boton.setOnClickListener(new Button.OnClickListener(){
 
 				@Override
 				public void onClick(View v) {
-					
+				//creamos variable para  capturar texto	
 				String getTextInTypeText = typeText.getText().toString();
-				
+					//creamos la intención para lanzar el mapa
 					Intent mapa = new Intent(
 							android.content.Intent.ACTION_VIEW,
 							Uri.parse("geo:0,0?q= (" + getTextInTypeText + ")")
@@ -35,7 +39,38 @@ public class MainActivity extends Activity {
 				}
         }
         );
+        
+        //Añadimos evento al botónContactos
+        botonContactos.setOnClickListener(new Button.OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					//creamos la intención para lanzar la segunda vista
+					Intent lanzarVentanContactos = new Intent(
+							MainActivity.this,
+							ContactosActivity.class
+							);
+					//Usamos forResult porque esperamos un resultado de la otra actividad
+						startActivityForResult(lanzarVentanContactos, 1);		
+				}
+        }
+        );
 	}
+	
+		//Creamos método para recoger los datos de la segunda actividad
+		protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+			//creamos variable de TextView (la misma que metemos en el boton buscar)
+			final TextView comprobado=(TextView) findViewById(R.id.type_text);
+			//Hacemos la lógica para que aparezca el string que mandamos de la segunda actividad
+		    if (requestCode == 1) {
+		        if(resultCode == RESULT_OK){
+		            String resultado=data.getStringExtra("txt");
+		            comprobado.setText(resultado);
+		        }
+		        if (resultCode == RESULT_CANCELED) {
+		        }
+		    }
+		}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
