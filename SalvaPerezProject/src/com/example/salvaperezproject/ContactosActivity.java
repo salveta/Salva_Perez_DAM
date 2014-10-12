@@ -27,93 +27,17 @@ public class ContactosActivity extends Activity {
 		final Button botonValladolid = (Button) findViewById(R.id.valladolid);
 		final Button botonBilbao = (Button) findViewById(R.id.bilbao);
 		
-		//incorporamos el evento al boton
-		botonValencia.setOnClickListener(new Button.OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Intent devolucionDatos = new Intent();
-				//En el Intent enviamos la información a la primera ventana
-				devolucionDatos.putExtra("txt", "Valencia");
-				setResult(RESULT_OK,devolucionDatos);
-				finish();
-			}
-    	}   
+		//Le decimos a la función que llama cada botón al hacer click
+		botonValencia.setOnClickListener(new devolverLugar());
+		botonSevilla.setOnClickListener(new devolverLugar());
+		botonBarcelona.setOnClickListener(new devolverLugar());
+		botonMadrid.setOnClickListener(new devolverLugar());
+		botonValladolid.setOnClickListener(new devolverLugar());
+		botonBilbao.setOnClickListener(new devolverLugar());		  
 	
-		);
-		
-		//incorporamos el evento al boton
-		botonValladolid.setOnClickListener(new Button.OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Intent devolucionDatos = new Intent();
-				//En el Intent enviamos la información a la primera ventana
-				devolucionDatos.putExtra("txt", "Valladolid");
-				setResult(RESULT_OK,devolucionDatos);
-				finish();
-			}
-    	}   
-		);
-		
-		//incorporamos el evento al boton
-		botonMadrid.setOnClickListener(new Button.OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Intent devolucionDatos = new Intent();
-				//En el Intent enviamos la información a la primera ventana
-				devolucionDatos.putExtra("txt", "Madrid");
-				setResult(RESULT_OK,devolucionDatos);
-				finish();
-			}
-    	}   
-		);
-		
-		//incorporamos el evento al boton
-		botonBarcelona.setOnClickListener(new Button.OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Intent devolucionDatos = new Intent();
-				//En el Intent enviamos la información a la primera ventana
-				devolucionDatos.putExtra("txt", "Barcelona");
-				setResult(RESULT_OK,devolucionDatos);
-				finish();
-			}
-    	}   
-		);
-		//incorporamos el evento al boton
-		botonBilbao.setOnClickListener(new Button.OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Intent devolucionDatos = new Intent();
-				//En el Intent enviamos la información a la primera ventana
-				devolucionDatos.putExtra("txt", "Bilbao");
-				setResult(RESULT_OK,devolucionDatos);
-				finish();
-			}
-    	}   
-		);
-		
-		//incorporamos el evento al boton
-		botonSevilla.setOnClickListener(new Button.OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Intent devolucionDatos = new Intent();
-				//En el Intent enviamos la información a la primera ventana
-				devolucionDatos.putExtra("txt", "Sevilla");
-				setResult(RESULT_OK,devolucionDatos);
-				finish();
-			}
-    	}   
-		);
 		//Se crea el primer paso del ciclo de vida
 		Log.i(TAG, "onCreate");
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -133,6 +57,24 @@ public class ContactosActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
+	class devolverLugar implements Button.OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			//Creamos un botón que llevará los datos del botón que pulsemos
+			final Button button = (Button) findViewById(v.getId());			
+			//Lanzamos un Intent para devolver los datos
+			Intent devolver = new Intent();
+			devolver.putExtra("txt", button.getText());
+			setResult(RESULT_OK,devolver);
+			finish();
+			
+		}
+		
+	}
+	
 	//Resto de estados del ciclo de vida de la app
 	@Override
 	protected void onStart() {
